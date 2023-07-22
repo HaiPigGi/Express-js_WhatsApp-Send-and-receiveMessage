@@ -1,0 +1,26 @@
+/* public/main.css */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+/* Add your custom styles below this line */
+/* For example: */
+body {
+  background-color: #A1CCD1;
+}
+
+/* Additional Tailwind CSS classes */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.btn-primary {
+  background-color: #3490dc;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #2779bd;
+}
+
+/* Add more custom styles as needed */

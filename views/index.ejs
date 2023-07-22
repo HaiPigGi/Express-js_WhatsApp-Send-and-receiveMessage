@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send WhatsApp Message</title>
+  <!-- Add these links in the <head> section of your HTML file -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Add this link in the <head> section of your HTML file -->
+  <link href="/main.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-purple-500 to-pink-500">
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 shadow-md rounded-md w-96">
+      <h1 class="text-2xl font-bold mb-4">Send WhatsApp Message</h1>
+      <form action="/whatsapp/send" method="post" onsubmit="handleFormSubmit(event)">
+        <div class="mb-4">
+          <label for="message" class="block text-gray-700 font-semibold">Message:</label>
+          <input type="text" id="message" name="message" class="w-full border border-gray-300 rounded-md p-2" required>
+        </div>
+
+        <div class="mb-4">
+          <label for="to" class="block text-gray-700 font-semibold">To (WhatsApp Number In Your Countries Example : ID +62) :</label>
+          <input type="text" id="to" name="to" class="w-full border border-gray-300 rounded-md p-2" required>
+        </div>
+
+        <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add this script at the end of your HTML body -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const success = params.get('success');
+  
+    if (success === 'true') {
+      window.alert('Pesan berhasil dikirim.');
+    }
+  
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const phoneNumber = document.getElementById('to').value;
+      const message = document.getElementById('message').value; // Get the message from the input field
+  
+      // Create an object to hold the message and phoneNumber data
+      const formData = {
+        message: message,
+        to: phoneNumber
+      };
+  
+      fetch('/whatsapp/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      .then(() => {
+        // Redirect to the conversation page with the phone number as a query parameter
+        window.open(`/whatsapp/conversation/${phoneNumber}`, '_blank');
+      })
+      .catch(error => {
+        // Handle error case, if needed
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+</html>
